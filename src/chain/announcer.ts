@@ -1,4 +1,3 @@
-import type { PublicClient, WalletClient, Log } from "viem";
 import { parseAbiItem } from "viem";
 import { ERC5564AnnouncerAbi } from "./abi/ERC5564Announcer.js";
 import {
@@ -6,6 +5,7 @@ import {
   SCHEME_ID,
   ERC5564_START_BLOCKS,
 } from "./constants.js";
+import type { getPublicClient, getWalletClient } from "./client.js";
 import type { EthAddress, HexString } from "../crypto/types.js";
 
 export interface AnnouncementLog {
@@ -21,14 +21,13 @@ const ANNOUNCEMENT_EVENT = parseAbiItem(
 );
 
 export async function postAnnouncement(
-  walletClient: WalletClient,
+  walletClient: ReturnType<typeof getWalletClient>,
   params: {
     stealthAddress: EthAddress;
     ephemeralPublicKey: HexString;
     viewTag: HexString;
   },
 ): Promise<HexString> {
-  // Metadata: viewTag (1 byte)
   const metadata = params.viewTag;
 
   const hash = await walletClient.writeContract({
@@ -46,7 +45,7 @@ export async function postAnnouncement(
 }
 
 export async function getAnnouncements(
-  publicClient: PublicClient,
+  publicClient: ReturnType<typeof getPublicClient>,
   options?: {
     fromBlock?: bigint;
     toBlock?: bigint;

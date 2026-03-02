@@ -3,10 +3,9 @@ import {
   createWalletClient,
   http,
   type Chain,
-  type PublicClient,
-  type WalletClient,
-  type Account,
+  type HttpTransport,
 } from "viem";
+import type { PrivateKeyAccount } from "viem/accounts";
 import {
   mainnet,
   sepolia,
@@ -26,7 +25,6 @@ const CHAINS: Record<number, Chain> = {
 function getChain(chainId: number): Chain {
   const chain = CHAINS[chainId];
   if (!chain) {
-    // Allow unknown chains with minimal config (e.g. anvil / local)
     return {
       id: chainId,
       name: `Chain ${chainId}`,
@@ -37,10 +35,7 @@ function getChain(chainId: number): Chain {
   return chain;
 }
 
-export function getPublicClient(
-  rpcUrl: string,
-  chainId: number,
-): PublicClient {
+export function getPublicClient(rpcUrl: string, chainId: number) {
   return createPublicClient({
     chain: getChain(chainId),
     transport: http(rpcUrl),
@@ -50,8 +45,8 @@ export function getPublicClient(
 export function getWalletClient(
   rpcUrl: string,
   chainId: number,
-  account: Account,
-): WalletClient {
+  account: PrivateKeyAccount,
+) {
   return createWalletClient({
     account,
     chain: getChain(chainId),

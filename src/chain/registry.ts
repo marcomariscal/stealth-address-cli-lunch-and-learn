@@ -1,10 +1,10 @@
-import type { PublicClient, WalletClient } from "viem";
 import { ERC6538RegistryAbi } from "./abi/ERC6538Registry.js";
 import { ERC6538_REGISTRY_ADDRESS, SCHEME_ID } from "./constants.js";
+import type { getPublicClient, getWalletClient } from "./client.js";
 import type { EthAddress, HexString } from "../crypto/types.js";
 
 export async function registerStealthMetaAddress(
-  walletClient: WalletClient,
+  walletClient: ReturnType<typeof getWalletClient>,
   stealthMetaAddress: HexString,
 ): Promise<HexString> {
   const hash = await walletClient.writeContract({
@@ -17,7 +17,7 @@ export async function registerStealthMetaAddress(
 }
 
 export async function getStealthMetaAddress(
-  publicClient: PublicClient,
+  publicClient: ReturnType<typeof getPublicClient>,
   registrant: EthAddress,
 ): Promise<HexString> {
   const result = await publicClient.readContract({
