@@ -1,0 +1,36 @@
+{
+  "name": "stealth-address-cli",
+  "version": "0.1.0",
+  "description": "Stealth address CLI tool (ERC-5564 / ERC-6538)",
+  "type": "module",
+  "bin": {
+    "stealth": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write ."
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@noble/curves": "^1.8.0",
+    "@noble/hashes": "^1.7.0",
+    "chalk": "^5.4.0",
+    "commander": "^13.1.0",
+    "dotenv": "^16.4.0",
+    "ora": "^8.2.0",
+    "viem": "^2.23.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0",
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}

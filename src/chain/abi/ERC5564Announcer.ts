@@ -1,0 +1,25 @@
+export const ERC5564AnnouncerAbi = [
+  {
+    type: "function",
+    name: "announce",
+    inputs: [
+      { name: "schemeId", type: "uint256" },
+      { name: "stealthAddress", type: "address" },
+      { name: "ephemeralPubKey", type: "bytes" },
+      { name: "metadata", type: "bytes" },
+    ],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "event",
+    name: "Announcement",
+    inputs: [
+      { name: "schemeId", type: "uint256", indexed: true },
+      { name: "stealthAddress", type: "address", indexed: true },
+      { name: "caller", type: "address", indexed: true },
+      { name: "ephemeralPubKey", type: "bytes", indexed: false },
+      { name: "metadata", type: "bytes", indexed: false },
+    ],
+  },
+] as const;
